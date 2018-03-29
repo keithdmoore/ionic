@@ -456,7 +456,8 @@ export function adjustRendered(cells: VirtualCell[], data: VirtualData) {
 
     let cellsRenderHeight = 0;
     for (let i = data.topCell; i < totalCells; i++) {
-      cellsRenderHeight += cells[i].height;
+      if (cells[i])
+        cellsRenderHeight += cells[i].height;
       if (i > data.bottomCell) data.bottomCell = i;
       if (cellsRenderHeight >= maxRenderHeight) break;
     }
@@ -464,7 +465,8 @@ export function adjustRendered(cells: VirtualCell[], data: VirtualData) {
     if (cellsRenderHeight < maxRenderHeight) {
       // there are no more cells at the bottom, so move topCell to a smaller index
       for (let i = data.topCell - 1; i >= 0; i--) {
-        cellsRenderHeight += cells[i].height;
+        if (cells[i])
+          cellsRenderHeight += cells[i].height;
         data.topCell = i;
         if (cellsRenderHeight >= maxRenderHeight) break;
       }
